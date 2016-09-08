@@ -9,4 +9,12 @@ public class ExecutorTest {
         assertEquals("abc", Executor.execute("echo abc"));
         assertEquals("a b c", Executor.execute("echo a b  c "));
     }
+
+    @Test
+    public void assignmentTest() {
+        Executor.execute("A = 1");
+        Executor.execute("B = $A");
+
+        assertEquals("1", Executor.execute("echo $B"));
+    }
 }
