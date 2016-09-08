@@ -1,3 +1,5 @@
+package shell;
+
 import java.util.HashMap;
 
 public class Environment {

@@ -1,5 +1,7 @@
 package commands;
 
+import java.util.List;
+
 public abstract class Command {
     protected int argc;
 
@@ -11,5 +13,5 @@ public abstract class Command {
         this.argc = argc;
     }
 
-    public abstract String exec(String... args);
+    public abstract String exec(List<String> args);
 }
