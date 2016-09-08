@@ -14,7 +14,7 @@ import java.util.logging.Level;
 
 public class ANTLRParserAdaptor {
 
-    public ParseTree parse(InputStream in) {
+    public static ParseTree parse(InputStream in) {
         ANTLRInputStream input = null;
         try {
             input = new ANTLRInputStream(in);
@@ -32,7 +32,15 @@ public class ANTLRParserAdaptor {
         parser.removeErrorListeners();
         parser.addErrorListener(new SyntaxErrorListener());
 
-        return parser.command();
+        ParseTree parseTree = null;
+        try {
+            parseTree = parser.command();
+        }
+        catch (RuntimeException re) {
+            Logger.INSTANCE.log(Level.ALL, re.getMessage());
+        }
+
+        return parseTree;
     }
 
 }
