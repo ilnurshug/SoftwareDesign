@@ -11,12 +11,7 @@ public class Assignment extends Command {
     }
 
     @Override
-    public String exec(List<String> args) {
-        if (args.size() != argc) {
-            logger.Logger.INSTANCE.log(Level.ALL, "wrong number of arguments");
-            return "";
-        }
-
+    public String execImpl(List<String> args) {
         Environment.INSTANCE.set(args.get(0), args.get(1));
         return "";
     }

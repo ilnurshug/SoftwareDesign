@@ -1,11 +1,11 @@
 grammar Shell;
 
 command     : assignment
-            | cmd
+            | pipeCmd
+            | simpleCmd
             | ;
 
-cmd         : pipeCmd
-            | simpleCmd ;
+pipeCmd     : simpleCmd ( '|' simpleCmd )+ ;
 
 simpleCmd   : cat
             | echo
@@ -13,13 +13,11 @@ simpleCmd   : cat
             | pwd
             | exit ;
 
-pipeCmd     : simpleCmd '|' cmd ;
-
 assignment  : id '=' literal ;
 
-cat         : 'cat' literal+ ;
+cat         : 'cat' literal* ;
 echo        : 'echo' literal+ ;
-wc          : 'wc' literal+ ;
+wc          : 'wc' literal* ;
 pwd         : 'pwd' ;
 exit        : 'exit' ;
 

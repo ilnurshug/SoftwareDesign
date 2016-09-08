@@ -11,7 +11,7 @@ public class Echo extends Command {
     }
 
     @Override
-    public String exec(List<String> args) {
+    public String execImpl(List<String> args) {
         return String.join(" ", args);
     }
 }
