@@ -14,6 +14,9 @@ public class LiteralVisitor  {
         else if (context.varid() != null) {
             return Environment.INSTANCE.get(str.substring(1));
         }
+        else if (context.fullQuoting() != null) {
+            return str.substring(1, str.length() - 1);
+        }
         else {
             return str;
         }

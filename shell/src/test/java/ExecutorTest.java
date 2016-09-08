@@ -16,5 +16,11 @@ public class ExecutorTest {
         Executor.execute("B = $A");
 
         assertEquals("1", Executor.execute("echo $B"));
+
+        Executor.execute("B = ' $A '");
+        assertEquals(" $A ", Executor.execute("echo $B"));
+
+        Executor.execute("B = \" $A $A \"");
+        assertEquals(" 1 1 ", Executor.execute("echo $B"));
     }
 }
