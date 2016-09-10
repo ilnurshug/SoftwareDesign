@@ -19,8 +19,8 @@ public abstract class Command {
     public String exec(List<String> args) {
         String res;
 
-        if (argc != -1 && argc != args.size()) {
-            logger.Logger.INSTANCE.log(Level.ALL, "wrong number of arguments");
+        if (argc != -1 && args != null && argc != args.size()) {
+            logger.Logger.log("wrong number of arguments");
             res = "";
         }
         else {

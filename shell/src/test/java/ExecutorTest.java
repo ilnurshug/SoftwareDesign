@@ -1,26 +1,26 @@
 import org.junit.Test;
-import shell.Executor;
+import shell.Shell;
 import static org.junit.Assert.assertEquals;
 
 public class ExecutorTest {
 
     @Test
     public void echoTest() {
-        assertEquals("abc", Executor.execute("echo abc"));
-        assertEquals("a b c", Executor.execute("echo a b  c "));
+        assertEquals("abc", Shell.execute("echo abc"));
+        assertEquals("a b c", Shell.execute("echo a b  c "));
     }
 
     @Test
     public void assignmentTest() {
-        Executor.execute("A = 1");
-        Executor.execute("B = $A");
+        Shell.execute("A = 1");
+        Shell.execute("B = $A");
 
-        assertEquals("1", Executor.execute("echo $B"));
+        assertEquals("1", Shell.execute("echo $B"));
 
-        Executor.execute("B = ' $A '");
-        assertEquals(" $A ", Executor.execute("echo $B"));
+        Shell.execute("B = ' $A '");
+        assertEquals(" $A ", Shell.execute("echo $B"));
 
-        Executor.execute("B = \" $A $A \"");
-        assertEquals(" 1 1 ", Executor.execute("echo $B"));
+        Shell.execute("B = \" $A $A \"");
+        assertEquals(" 1 1 ", Shell.execute("echo $B"));
     }
 }

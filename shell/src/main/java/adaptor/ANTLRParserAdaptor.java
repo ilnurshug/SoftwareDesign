@@ -20,7 +20,7 @@ public class ANTLRParserAdaptor {
             input = new ANTLRInputStream(in);
         }
         catch (IOException e) {
-            Logger.INSTANCE.log(Level.ALL, e.getMessage());
+            Logger.log(e.getMessage());
             return null;
         }
 
@@ -37,7 +37,7 @@ public class ANTLRParserAdaptor {
             parseTree = parser.command();
         }
         catch (RuntimeException re) {
-            Logger.INSTANCE.log(Level.ALL, re.getMessage());
+            Logger.log(re.getMessage());
         }
 
         return parseTree;

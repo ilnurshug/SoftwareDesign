@@ -26,4 +26,8 @@ public class Environment {
     public String getPrevCmdResult() {
         return result;
     }
+
+    public String getCurrentDirectory() {
+        return System.getProperty("user.dir");
+    }
 }

@@ -16,6 +16,6 @@ public class SyntaxErrorListener extends BaseErrorListener {
                             int line, int charPositionInLine,
                             String msg, RecognitionException e)
     {
-        Logger.INSTANCE.log(Level.ALL, "line "+line+":"+charPositionInLine+" at "+offendingSymbol+": "+msg);
+        Logger.log("line "+line+":"+charPositionInLine+" at "+offendingSymbol+": "+msg);
     }
 }

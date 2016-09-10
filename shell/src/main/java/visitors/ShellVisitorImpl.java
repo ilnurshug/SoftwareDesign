@@ -31,4 +31,22 @@ public class ShellVisitorImpl extends ShellBaseVisitor {
         isPipeCmd = false;
         return null;
     }
+
+    @Override
+    public Object visitCat(ShellParser.CatContext ctx) {
+        CatVisitor.visit(this, ctx);
+        return null;
+    }
+
+    @Override
+    public Object visitPwd(ShellParser.PwdContext ctx) {
+        PwdVisitor.visit(this, ctx);
+        return null;
+    }
+
+    @Override
+    public Object visitExit(ShellParser.ExitContext ctx) {
+        ExitVisitor.visit(this, ctx);
+        return null;
+    }
 }
