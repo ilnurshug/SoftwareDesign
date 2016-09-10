@@ -33,7 +33,7 @@ public class Cat extends Command {
         }
     }
 
-    static String readFile(String path, Charset encoding) throws IOException
+    private static String readFile(String path, Charset encoding) throws IOException
     {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);

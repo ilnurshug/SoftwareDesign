@@ -1,19 +1,19 @@
 package visitors;
 
-import commands.Cat;
+import commands.Wc;
 import grammar.ShellParser;
 import shell.Environment;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class CatVisitor {
+public class WcVisitor {
 
-    private static final Cat cmd = new Cat();
+    private static final Wc cmd = new Wc();
 
-    public static void visit(ShellVisitorImpl visitor, ShellParser.CatContext context) {
+    public static void visit(ShellVisitorImpl visitor, ShellParser.WcContext context) {
         visitor.visitChildren(context);
         VisitorHelper.executeCommand(cmd, context.literal(), visitor.isPipeCmd());
     }
+
 }

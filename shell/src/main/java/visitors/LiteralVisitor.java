@@ -3,6 +3,9 @@ package visitors;
 import grammar.ShellParser;
 import shell.Environment;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class LiteralVisitor  {
 
     public static String getValue(ShellParser.LiteralContext context) {
@@ -22,4 +25,15 @@ public class LiteralVisitor  {
         }
     }
 
+    public static List<String> transform(List<ShellParser.LiteralContext> literals) {
+        if (literals == null) {
+            return null;
+        }
+        else {
+            return literals
+                    .stream()
+                    .map(LiteralVisitor::getValue)
+                    .collect(Collectors.toList());
+        }
+    }
 }

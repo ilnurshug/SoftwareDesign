@@ -13,13 +13,7 @@ public class EchoVisitor {
 
     public static void visit(ShellVisitorImpl visitor, ShellParser.EchoContext context) {
         visitor.visitChildren(context);
-
-        cmd.exec(
-                context.literal()
-                        .stream()
-                        .map(LiteralVisitor::getValue)
-                        .collect(Collectors.toList())
-        );
+        VisitorHelper.executeCommand(cmd, context.literal(), false);
     }
 
 }

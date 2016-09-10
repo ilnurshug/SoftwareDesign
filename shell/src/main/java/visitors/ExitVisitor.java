@@ -9,8 +9,7 @@ public class ExitVisitor {
 
     public static void visit(ShellVisitorImpl visitor, ShellParser.ExitContext context) {
         visitor.visitChildren(context);
-
-        cmd.exec(null);
+        VisitorHelper.executeCommand(cmd, null, false);
     }
 
 }

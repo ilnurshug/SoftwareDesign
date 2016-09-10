@@ -49,4 +49,10 @@ public class ShellVisitorImpl extends ShellBaseVisitor {
         ExitVisitor.visit(this, ctx);
         return null;
     }
+
+    @Override
+    public Object visitWc(ShellParser.WcContext ctx) {
+        WcVisitor.visit(this, ctx);
+        return null;
+    }
 }

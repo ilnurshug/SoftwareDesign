@@ -9,8 +9,7 @@ public class PwdVisitor {
 
     public static void visit(ShellVisitorImpl visitor, ShellParser.PwdContext context) {
         visitor.visitChildren(context);
-
-        cmd.exec(null);
+        VisitorHelper.executeCommand(cmd, null, false);
     }
 
 }
