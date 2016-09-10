@@ -15,7 +15,7 @@ public class Cat extends Command {
     }
 
     @Override
-    public String execImpl(List<String> args) {
+    protected String execImpl(List<String> args) {
         return String.join("\n",
                 args.stream()
                         .map(Cat::processFile)
@@ -28,7 +28,7 @@ public class Cat extends Command {
             return readFile(filename, Charset.defaultCharset());
         }
         catch (IOException e) {
-            Logger.log("file " + e.getMessage() + "not found");
+            Logger.log("file " + e.getMessage() + " not found");
             return "";
         }
     }

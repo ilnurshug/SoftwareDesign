@@ -24,7 +24,9 @@ public class Environment {
     }
 
     public String getPrevCmdResult() {
-        return result;
+        String tmp = result;
+        result = null;
+        return tmp;
     }
 
     public String getCurrentDirectory() {

@@ -8,7 +8,7 @@ public class Exit extends Command {
     }
 
     @Override
-    public String execImpl(List<String> args) {
+    protected String execImpl(List<String> args) {
         System.exit(0);
         return "";
     }

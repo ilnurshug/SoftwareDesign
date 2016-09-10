@@ -3,7 +3,6 @@ package commands;
 import shell.Environment;
 
 import java.util.List;
-import java.util.logging.Level;
 
 public abstract class Command {
     protected int argc;
@@ -32,5 +31,5 @@ public abstract class Command {
         return res;
     }
 
-    public abstract String execImpl(List<String> args);
+    protected abstract String execImpl(List<String> args);
 }

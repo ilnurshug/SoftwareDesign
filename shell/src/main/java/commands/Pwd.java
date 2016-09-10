@@ -10,7 +10,7 @@ public class Pwd extends Command {
     }
 
     @Override
-    public String execImpl(List<String> args) {
+    protected String execImpl(List<String> args) {
         return Environment.INSTANCE.getCurrentDirectory();
     }
 }

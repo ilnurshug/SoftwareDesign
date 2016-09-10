@@ -16,7 +16,8 @@ public class Shell {
         try {
             String line;
             while ((line = br.readLine()) != null) {
-                System.out.println(execute(line));
+                String res = execute(line);
+                if (res != null) System.out.println(res);
             }
         }
         catch (IOException e) {
