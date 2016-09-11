@@ -55,4 +55,10 @@ public class ShellVisitorImpl extends ShellBaseVisitor {
         WcVisitor.visit(this, ctx);
         return null;
     }
+
+    @Override
+    public Object visitProc(ShellParser.ProcContext ctx) {
+        ProcVisitor.visit(this, ctx);
+        return null;
+    }
 }

@@ -11,7 +11,8 @@ simpleCmd   : cat
             | echo
             | wc
             | pwd
-            | exit ;
+            | exit
+            | proc;
 
 assignment  : id '=' literal ;
 
@@ -20,6 +21,7 @@ echo        : 'echo' literal+ ;
 wc          : 'wc' literal* ;
 pwd         : 'pwd' ;
 exit        : 'exit' ;
+proc        : literal+ ;
 
 id          : ID ;
 varid       : VAR_ID ;
