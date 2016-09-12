@@ -3,13 +3,16 @@ package visitors;
 import commands.Exit;
 import grammar.ShellParser;
 
-public class ExitVisitor {
+public class ExitVisitor extends CommandVisitor<Exit, ShellParser.ExitContext> {
 
-    private static final Exit cmd = new Exit();
+    public ExitVisitor() {
+        super(Exit.class);
+    }
 
-    public static void visit(ShellVisitorImpl visitor, ShellParser.ExitContext context) {
+    @Override
+    public void visit(ShellVisitorImpl visitor, ShellParser.ExitContext context) {
         visitor.visitChildren(context);
-        VisitorHelper.executeCommand(cmd, null, false);
+        CommandVisitor.executeCommand(cmd, null, false);
     }
 
 }

@@ -55,13 +55,13 @@ public class Wc extends Command {
         private int wordsCnd;
         private int bytesCnt;
 
-        public FileInfo(int newLinesCnt, int wordsCnd, int bytesCnt) {
+        FileInfo(int newLinesCnt, int wordsCnd, int bytesCnt) {
             this.newLinesCnt = newLinesCnt;
             this.wordsCnd = wordsCnd;
             this.bytesCnt = bytesCnt;
         }
 
-        public FileInfo(String filename) throws IOException {
+        FileInfo(String filename) throws IOException {
             String text = readFile(filename, Charset.defaultCharset());
 
             newLinesCnt = count(text, '\n');
@@ -69,7 +69,7 @@ public class Wc extends Command {
             bytesCnt = text.getBytes().length;
         }
 
-        public int getNewLinesCnt() {
+        int getNewLinesCnt() {
             return newLinesCnt;
         }
 

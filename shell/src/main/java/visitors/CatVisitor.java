@@ -2,18 +2,16 @@ package visitors;
 
 import commands.Cat;
 import grammar.ShellParser;
-import shell.Environment;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+public class CatVisitor extends CommandVisitor<Cat, ShellParser.CatContext> {
 
-public class CatVisitor {
+    public CatVisitor() {
+        super(Cat.class);
+    }
 
-    private static final Cat cmd = new Cat();
-
-    public static void visit(ShellVisitorImpl visitor, ShellParser.CatContext context) {
+    @Override
+    public void visit(ShellVisitorImpl visitor, ShellParser.CatContext context) {
         visitor.visitChildren(context);
-        VisitorHelper.executeCommand(cmd, context.literal(), visitor.isPipeCmd());
+        CommandVisitor.executeCommand(cmd, context.literal(), visitor.isPipeCmd());
     }
 }

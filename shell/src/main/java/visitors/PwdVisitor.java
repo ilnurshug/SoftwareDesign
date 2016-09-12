@@ -3,13 +3,16 @@ package visitors;
 import commands.Pwd;
 import grammar.ShellParser;
 
-public class PwdVisitor {
+public class PwdVisitor extends CommandVisitor<Pwd, ShellParser.PwdContext> {
 
-    private static final Pwd cmd = new Pwd();
+    public PwdVisitor() {
+        super(Pwd.class);
+    }
 
-    public static void visit(ShellVisitorImpl visitor, ShellParser.PwdContext context) {
+    @Override
+    public void visit(ShellVisitorImpl visitor, ShellParser.PwdContext context) {
         visitor.visitChildren(context);
-        VisitorHelper.executeCommand(cmd, null, false);
+        CommandVisitor.executeCommand(cmd, null, false);
     }
 
 }

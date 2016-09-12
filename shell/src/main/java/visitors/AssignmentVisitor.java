@@ -5,17 +5,20 @@ import grammar.ShellParser;
 
 import java.util.Arrays;
 
-public class AssignmentVisitor {
+public class AssignmentVisitor extends CommandVisitor<Assignment, ShellParser.AssignmentContext> {
 
-    private static final Assignment cmd = new Assignment();
+    public AssignmentVisitor() {
+        super(Assignment.class);
+    }
 
-    public static void visit(ShellVisitorImpl visitor, ShellParser.AssignmentContext context) {
+    @Override
+    public void visit(ShellVisitorImpl visitor, ShellParser.AssignmentContext context) {
         visitor.visitChildren(context);
 
         cmd.exec(
                 Arrays.asList(
-                        IdVisitor.getValue(context.id()),
-                        LiteralVisitor.getValue(context.literal())
+                        getValue(context.id()),
+                        getValue(context.literal())
                 )
         );
     }

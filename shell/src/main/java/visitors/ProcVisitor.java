@@ -3,13 +3,16 @@ package visitors;
 import commands.Proc;
 import grammar.ShellParser;
 
-public class ProcVisitor {
+public class ProcVisitor  extends CommandVisitor<Proc, ShellParser.ProcContext> {
 
-    private static final Proc cmd = new Proc();
+    public ProcVisitor() {
+        super(Proc.class);
+    }
 
-    public static void visit(ShellVisitorImpl visitor, ShellParser.ProcContext context) {
+    @Override
+    public void visit(ShellVisitorImpl visitor, ShellParser.ProcContext context) {
         visitor.visitChildren(context);
-        VisitorHelper.executeCommand(cmd, context.literal(), visitor.isPipeCmd());
+        CommandVisitor.executeCommand(cmd, context.literal(), visitor.isPipeCmd());
     }
 
 }

@@ -2,6 +2,7 @@ package visitors;
 
 import grammar.ShellBaseVisitor;
 import grammar.ShellParser;
+import org.antlr.v4.runtime.ParserRuleContext;
 
 public class ShellVisitorImpl extends ShellBaseVisitor {
     private boolean isPipeCmd = false;
@@ -12,13 +13,13 @@ public class ShellVisitorImpl extends ShellBaseVisitor {
 
     @Override
     public Object visitEcho(ShellParser.EchoContext ctx) {
-        EchoVisitor.visit(this, ctx);
+        visit(EchoVisitor.class, ctx);
         return null;
     }
 
     @Override
     public Object visitAssignment(ShellParser.AssignmentContext ctx) {
-        AssignmentVisitor.visit(this, ctx);
+        visit(AssignmentVisitor.class, ctx);
         return null;
     }
 
@@ -34,31 +35,41 @@ public class ShellVisitorImpl extends ShellBaseVisitor {
 
     @Override
     public Object visitCat(ShellParser.CatContext ctx) {
-        CatVisitor.visit(this, ctx);
+        visit(CatVisitor.class, ctx);
         return null;
     }
 
     @Override
     public Object visitPwd(ShellParser.PwdContext ctx) {
-        PwdVisitor.visit(this, ctx);
+        visit(PwdVisitor.class, ctx);
         return null;
     }
 
     @Override
     public Object visitExit(ShellParser.ExitContext ctx) {
-        ExitVisitor.visit(this, ctx);
+        visit(ExitVisitor.class, ctx);
         return null;
     }
 
     @Override
     public Object visitWc(ShellParser.WcContext ctx) {
-        WcVisitor.visit(this, ctx);
+        visit(WcVisitor.class, ctx);
         return null;
     }
 
     @Override
     public Object visitProc(ShellParser.ProcContext ctx) {
-        ProcVisitor.visit(this, ctx);
+        visit(ProcVisitor.class, ctx);
         return null;
+    }
+
+    private <Visitor extends CommandVisitor, Context extends ParserRuleContext> void visit(Class<Visitor> cls, Context ctx) {
+        try {
+            Visitor visitor = cls.newInstance();
+            visitor.visit(this, ctx);
+        }
+        catch (IllegalAccessException | InstantiationException e) {
+            logger.Logger.log(e.getMessage());
+        }
     }
 }

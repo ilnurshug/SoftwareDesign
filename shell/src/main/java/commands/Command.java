@@ -5,13 +5,13 @@ import shell.Environment;
 import java.util.List;
 
 public abstract class Command {
-    protected int argc;
+    private int argc;
 
     /*
         argc: number of arguments,
         -1 if command have arbitrary number of args
      */
-    public Command(int argc) {
+    Command(int argc) {
         this.argc = argc;
     }
 

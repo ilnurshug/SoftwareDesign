@@ -2,18 +2,17 @@ package visitors;
 
 import commands.Echo;
 import grammar.ShellParser;
-import shell.Environment;
 
-import java.util.List;
-import java.util.stream.Collectors;
+public class EchoVisitor extends CommandVisitor<Echo, ShellParser.EchoContext> {
 
-public class EchoVisitor {
+    public EchoVisitor() {
+        super(Echo.class);
+    }
 
-    private static final Echo cmd = new Echo();
-
-    public static void visit(ShellVisitorImpl visitor, ShellParser.EchoContext context) {
+    @Override
+    public void visit(ShellVisitorImpl visitor, ShellParser.EchoContext context) {
         visitor.visitChildren(context);
-        VisitorHelper.executeCommand(cmd, context.literal(), false);
+        CommandVisitor.executeCommand(cmd, context.literal(), false);
     }
 
 }

@@ -2,18 +2,17 @@ package visitors;
 
 import commands.Wc;
 import grammar.ShellParser;
-import shell.Environment;
 
-import java.util.Collections;
-import java.util.List;
+public class WcVisitor extends CommandVisitor<Wc, ShellParser.WcContext> {
 
-public class WcVisitor {
+    public WcVisitor() {
+        super(Wc.class);
+    }
 
-    private static final Wc cmd = new Wc();
-
-    public static void visit(ShellVisitorImpl visitor, ShellParser.WcContext context) {
+    @Override
+    public void visit(ShellVisitorImpl visitor, ShellParser.WcContext context) {
         visitor.visitChildren(context);
-        VisitorHelper.executeCommand(cmd, context.literal(), visitor.isPipeCmd());
+        CommandVisitor.executeCommand(cmd, context.literal(), visitor.isPipeCmd());
     }
 
 }
