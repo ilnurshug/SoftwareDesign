@@ -2,7 +2,7 @@ import org.junit.Test;
 import shell.Shell;
 import static org.junit.Assert.assertEquals;
 
-public class ExecutorTest {
+public class ShellTest {
 
     @Test
     public void echoTest() {

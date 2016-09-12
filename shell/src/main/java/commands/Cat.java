@@ -2,10 +2,10 @@ package commands;
 
 import logger.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import com.google.common.io.Files;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,17 +25,11 @@ public class Cat extends Command {
 
     private static String processFile(String filename) {
         try {
-            return readFile(filename, Charset.defaultCharset());
+            return Files.toString(new File(filename), Charset.defaultCharset());
         }
         catch (IOException e) {
             Logger.log("file " + e.getMessage() + " not found");
             return "";
         }
-    }
-
-    private static String readFile(String path, Charset encoding) throws IOException
-    {
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
-        return new String(encoded, encoding);
     }
 }

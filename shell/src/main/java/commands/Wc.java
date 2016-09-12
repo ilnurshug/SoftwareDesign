@@ -1,10 +1,11 @@
 package commands;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import com.google.common.io.Files;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Wc extends Command {
@@ -22,20 +23,13 @@ public class Wc extends Command {
         else {
             List<FileInfo> infoList = args.stream()
                     .map(Wc::processFile)
+                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
 
-            int totalNlCnt = infoList.stream()
-                    .mapToInt(FileInfo::getNewLinesCnt)
-                    .sum();
-
-            String res = String.join("\n", infoList.stream()
+            return String.join("\n", infoList.stream()
                                         .map(FileInfo::toString)
                                         .collect(Collectors.toList())
             );
-
-            if (infoList.size() > 1) res += "\n" + totalNlCnt;
-
-            return res;
         }
     }
 
@@ -45,80 +39,31 @@ public class Wc extends Command {
         }
         catch (IOException e) {
             logger.Logger.log("wc: " + filename + ": No such file");
-            return new FileInfo(0, 0, 0);
+            return null;
         }
     }
 
 
     private static class FileInfo {
+        private String filename;
         private int newLinesCnt;
         private int wordsCnd;
         private int bytesCnt;
 
-        FileInfo(int newLinesCnt, int wordsCnd, int bytesCnt) {
-            this.newLinesCnt = newLinesCnt;
-            this.wordsCnd = wordsCnd;
-            this.bytesCnt = bytesCnt;
-        }
-
         FileInfo(String filename) throws IOException {
-            String text = readFile(filename, Charset.defaultCharset());
+            this.filename = filename;
 
-            newLinesCnt = count(text, '\n');
-            wordsCnd = countWords(text);
+            List<String> lines = Files.readLines(new File(filename), Charset.defaultCharset());
+            String text = String.join("\n", lines);
+
+            newLinesCnt = lines.size();
+            wordsCnd = lines.stream().mapToInt(s -> s.split("\\W+").length).sum();
             bytesCnt = text.getBytes().length;
-        }
-
-        int getNewLinesCnt() {
-            return newLinesCnt;
-        }
-
-        public int getWordsCnd() {
-            return wordsCnd;
-        }
-
-        public int getBytesCnt() {
-            return bytesCnt;
         }
 
         @Override
         public String toString() {
-            return newLinesCnt + " " + wordsCnd + " " + bytesCnt;
+            return newLinesCnt + " " + wordsCnd + " " + bytesCnt + " " + filename;
         }
-
-        private String readFile(String path, Charset encoding) throws IOException {
-            byte[] encoded = Files.readAllBytes(Paths.get(path));
-            return new String(encoded, encoding);
-        }
-
-        private int countWords(String s) {
-            int wordCount = 0;
-
-            boolean word = false;
-            int endOfLine = s.length() - 1;
-
-            for (int i = 0; i < s.length(); i++) {
-                if (Character.isLetter(s.charAt(i)) && i != endOfLine) {
-                    word = true;
-                }
-                else if (!Character.isLetter(s.charAt(i)) && word) {
-                    wordCount++;
-                    word = false;
-                }
-                else if (Character.isLetter(s.charAt(i)) && i == endOfLine) {
-                    wordCount++;
-                }
-            }
-
-            return wordCount;
-        }
-
-        private int count(String s, char c) {
-            int count = 0;
-            for (int i = 0; i < s.length(); i++)
-                if (s.charAt(i) == c) count++;
-            return count;
-        }
-
     }
 }
