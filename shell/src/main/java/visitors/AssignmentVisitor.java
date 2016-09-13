@@ -5,7 +5,7 @@ import grammar.ShellParser;
 
 import java.util.Arrays;
 
-public class AssignmentVisitor extends CommandVisitor<Assignment, ShellParser.AssignmentContext> {
+class AssignmentVisitor extends CommandVisitor<Assignment, ShellParser.AssignmentContext> {
 
     public AssignmentVisitor() {
         super(Assignment.class);

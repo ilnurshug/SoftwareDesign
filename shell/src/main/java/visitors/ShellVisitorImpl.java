@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 public class ShellVisitorImpl extends ShellBaseVisitor {
     private boolean isPipeCmd = false;
 
-    public boolean isPipeCmd() {
+    boolean isPipeCmd() {
         return isPipeCmd;
     }
 

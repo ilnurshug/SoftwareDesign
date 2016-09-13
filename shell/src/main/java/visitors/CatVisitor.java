@@ -3,7 +3,7 @@ package visitors;
 import commands.Cat;
 import grammar.ShellParser;
 
-public class CatVisitor extends CommandVisitor<Cat, ShellParser.CatContext> {
+class CatVisitor extends CommandVisitor<Cat, ShellParser.CatContext> {
 
     public CatVisitor() {
         super(Cat.class);

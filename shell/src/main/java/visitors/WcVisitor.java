@@ -3,7 +3,7 @@ package visitors;
 import commands.Wc;
 import grammar.ShellParser;
 
-public class WcVisitor extends CommandVisitor<Wc, ShellParser.WcContext> {
+class WcVisitor extends CommandVisitor<Wc, ShellParser.WcContext> {
 
     public WcVisitor() {
         super(Wc.class);

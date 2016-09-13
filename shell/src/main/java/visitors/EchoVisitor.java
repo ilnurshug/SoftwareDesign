@@ -3,7 +3,7 @@ package visitors;
 import commands.Echo;
 import grammar.ShellParser;
 
-public class EchoVisitor extends CommandVisitor<Echo, ShellParser.EchoContext> {
+class EchoVisitor extends CommandVisitor<Echo, ShellParser.EchoContext> {
 
     public EchoVisitor() {
         super(Echo.class);

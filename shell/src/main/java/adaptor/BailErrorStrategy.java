@@ -2,7 +2,7 @@ package adaptor;
 
 import org.antlr.v4.runtime.*;
 
-public class BailErrorStrategy extends DefaultErrorStrategy {
+class BailErrorStrategy extends DefaultErrorStrategy {
     @Override
     public void recover(Parser recognizer, RecognitionException e) {
         throw new RuntimeException(e);

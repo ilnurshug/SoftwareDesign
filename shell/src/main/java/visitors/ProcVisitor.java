@@ -3,7 +3,7 @@ package visitors;
 import commands.Proc;
 import grammar.ShellParser;
 
-public class ProcVisitor  extends CommandVisitor<Proc, ShellParser.ProcContext> {
+class ProcVisitor  extends CommandVisitor<Proc, ShellParser.ProcContext> {
 
     public ProcVisitor() {
         super(Proc.class);

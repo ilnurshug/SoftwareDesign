@@ -1,7 +1,5 @@
 package adaptor;
 
-
-import grammar.ShellLexer;
 import grammar.ShellParser;
 import logger.Logger;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -10,12 +8,11 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
 
 public class ANTLRParserAdaptor {
 
     public static ParseTree parse(InputStream in) {
-        ANTLRInputStream input = null;
+        ANTLRInputStream input;
         try {
             input = new ANTLRInputStream(in);
         }

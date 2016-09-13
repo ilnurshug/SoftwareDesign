@@ -4,8 +4,8 @@ import grammar.ShellLexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.LexerNoViableAltException;
 
-public class BailShellLexer extends ShellLexer {
-    public BailShellLexer(CharStream input) {
+class BailShellLexer extends ShellLexer {
+    BailShellLexer(CharStream input) {
         super(input);
     }
 

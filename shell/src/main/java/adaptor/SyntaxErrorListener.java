@@ -3,11 +3,9 @@ package adaptor;
 import logger.Logger;
 import org.antlr.v4.runtime.*;
 
-import java.util.logging.Level;
+class SyntaxErrorListener extends BaseErrorListener {
 
-public class SyntaxErrorListener extends BaseErrorListener {
-
-    public SyntaxErrorListener() {
+    SyntaxErrorListener() {
     }
 
     @Override

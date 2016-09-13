@@ -3,7 +3,7 @@ package visitors;
 import commands.Pwd;
 import grammar.ShellParser;
 
-public class PwdVisitor extends CommandVisitor<Pwd, ShellParser.PwdContext> {
+class PwdVisitor extends CommandVisitor<Pwd, ShellParser.PwdContext> {
 
     public PwdVisitor() {
         super(Pwd.class);

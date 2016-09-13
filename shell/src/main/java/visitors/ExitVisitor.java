@@ -3,7 +3,7 @@ package visitors;
 import commands.Exit;
 import grammar.ShellParser;
 
-public class ExitVisitor extends CommandVisitor<Exit, ShellParser.ExitContext> {
+class ExitVisitor extends CommandVisitor<Exit, ShellParser.ExitContext> {
 
     public ExitVisitor() {
         super(Exit.class);
