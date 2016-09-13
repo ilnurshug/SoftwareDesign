@@ -3,6 +3,8 @@ package commands;
 import java.util.List;
 
 /*
+    Print args
+
     echo command can not take as argument the result of previous command
  */
 public class Echo extends Command {

@@ -9,6 +9,9 @@ import com.google.common.io.Files;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/*
+    Read file's text
+ */
 public class Cat extends Command {
     public Cat() {
         super(-1);

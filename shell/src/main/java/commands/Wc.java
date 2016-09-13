@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/*
+    count newlines, words and bytes for each file
+ */
 public class Wc extends Command {
 
     public Wc() {

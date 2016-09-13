@@ -1,7 +1,9 @@
 package commands;
 
 import java.util.List;
-
+/*
+    Exit from REPL
+ */
 public class Exit extends Command {
     public Exit() {
         super(0);

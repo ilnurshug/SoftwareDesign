@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import shell.Environment;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -65,7 +66,7 @@ abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleCon
 
     private static List<String> getValue(List<ShellParser.LiteralContext> literals) {
         if (literals == null) {
-            return null;
+            return new LinkedList<>();
         }
         else {
             return literals

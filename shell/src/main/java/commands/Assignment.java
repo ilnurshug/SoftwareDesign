@@ -3,7 +3,9 @@ package commands;
 import shell.Environment;
 
 import java.util.List;
-
+/*
+    Set variable value in environment
+ */
 public class Assignment extends Command {
     public Assignment() {
         super(2);
