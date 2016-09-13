@@ -15,7 +15,7 @@ public class Cat extends Command {
     }
 
     @Override
-    protected String execImpl(List<String> args) {
+    protected String execImpl(List<String> args, boolean inPipe) {
         return String.join("\n",
                 args.stream()
                         .map(Cat::processFile)
@@ -29,7 +29,7 @@ public class Cat extends Command {
         }
         catch (IOException e) {
             Logger.log("file " + e.getMessage() + " not found");
-            return "";
+            return null;
         }
     }
 }

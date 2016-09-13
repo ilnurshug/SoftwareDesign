@@ -20,7 +20,7 @@ public class AssignmentVisitor extends CommandVisitor<Assignment, ShellParser.As
                         getValue(context.id()),
                         getValue(context.literal())
                 )
-        );
+                , false);
     }
 
 }

@@ -15,15 +15,15 @@ public abstract class Command {
         this.argc = argc;
     }
 
-    public String exec(List<String> args) {
+    public String exec(List<String> args, boolean inPipe) {
         String res;
 
-        if (argc != -1 && args != null && argc != args.size()) {
+        if (argc != -1 && argc != args.size()) {
             logger.Logger.log("wrong number of arguments");
             res = "";
         }
         else {
-            res = execImpl(args);
+            res = execImpl(args, inPipe);
         }
 
         Environment.INSTANCE.addCommandResult(res);
@@ -31,5 +31,5 @@ public abstract class Command {
         return res;
     }
 
-    protected abstract String execImpl(List<String> args);
+    protected abstract String execImpl(List<String> args, boolean inPipe);
 }

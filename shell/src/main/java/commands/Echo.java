@@ -11,7 +11,7 @@ public class Echo extends Command {
     }
 
     @Override
-    protected String execImpl(List<String> args) {
+    protected String execImpl(List<String> args, boolean inPipe) {
         return String.join(" ", args);
     }
 }

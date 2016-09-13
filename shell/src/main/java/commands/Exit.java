@@ -8,8 +8,8 @@ public class Exit extends Command {
     }
 
     @Override
-    protected String execImpl(List<String> args) {
+    protected String execImpl(List<String> args, boolean inPipe) {
         System.exit(0);
-        return "";
+        return null;
     }
 }

@@ -9,6 +9,7 @@ import shell.Environment;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleContext> {
@@ -32,12 +33,15 @@ abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleCon
         List<String> args;
 
         if ((literals == null || literals.size() == 0) && isPipe) {
-            args = Collections.singletonList(Environment.INSTANCE.getPrevCmdResult());
+            args = Collections.singletonList(Environment.INSTANCE.getPrevCmdResult())
+                                .stream()
+                                .filter(Objects::nonNull)
+                                .collect(Collectors.toList());
         } else {
             args = CommandVisitor.getValue(literals);
         }
 
-        cmd.exec(args);
+        cmd.exec(args, isPipe);
     }
 
     static String getValue(ShellParser.LiteralContext literal) {

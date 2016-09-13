@@ -3,6 +3,7 @@ package shell;
 import adaptor.ANTLRParserAdaptor;
 import logger.Logger;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.SyntaxTree;
 import visitors.ShellVisitorImpl;
 
 import java.io.*;
@@ -11,13 +12,18 @@ import java.nio.charset.StandardCharsets;
 public class Shell {
 
     public static void main(String[] args) {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
             String line;
             while ((line = br.readLine()) != null) {
                 String res = execute(line);
-                if (res != null) System.out.println(res);
+                if (res != null) {
+                    System.out.println(res);
+                }
+                else {
+                    System.out.println();
+                }
             }
         }
         catch (IOException e) {

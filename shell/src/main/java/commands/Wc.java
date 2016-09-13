@@ -15,8 +15,8 @@ public class Wc extends Command {
     }
 
     @Override
-    protected String execImpl(List<String> args) {
-        if (args == null || args.size() == 0) {
+    protected String execImpl(List<String> args, boolean inPipe) {
+        if (args.size() == 0) {
             // TODO:
             return null;
         }
