@@ -11,8 +11,7 @@ public class ProcVisitor  extends CommandVisitor<Proc, ShellParser.ProcContext> 
 
     @Override
     public void visit(ShellVisitorImpl visitor, ShellParser.ProcContext context) {
-        visitor.visitChildren(context);
-        CommandVisitor.executeCommand(cmd, context.literal(), visitor.isPipeCmd());
+        executeCommand(visitor, context, context.literal(), visitor.isPipeCmd());
     }
 
 }

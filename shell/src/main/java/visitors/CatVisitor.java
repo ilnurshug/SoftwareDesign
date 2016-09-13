@@ -11,7 +11,6 @@ public class CatVisitor extends CommandVisitor<Cat, ShellParser.CatContext> {
 
     @Override
     public void visit(ShellVisitorImpl visitor, ShellParser.CatContext context) {
-        visitor.visitChildren(context);
-        CommandVisitor.executeCommand(cmd, context.literal(), visitor.isPipeCmd());
+        executeCommand(visitor, context, context.literal(), visitor.isPipeCmd());
     }
 }

@@ -29,7 +29,9 @@ abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleCon
         visitor.visitChildren(context);
     }
 
-    static void executeCommand(Command cmd, List<ShellParser.LiteralContext> literals, boolean isPipe) {
+    void executeCommand(ShellVisitorImpl visitor, Context context, List<ShellParser.LiteralContext> literals, boolean isPipe) {
+        visitor.visitChildren(context);
+
         List<String> args;
 
         if ((literals == null || literals.size() == 0) && isPipe) {

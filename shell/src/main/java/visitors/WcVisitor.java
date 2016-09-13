@@ -11,8 +11,7 @@ public class WcVisitor extends CommandVisitor<Wc, ShellParser.WcContext> {
 
     @Override
     public void visit(ShellVisitorImpl visitor, ShellParser.WcContext context) {
-        visitor.visitChildren(context);
-        CommandVisitor.executeCommand(cmd, context.literal(), visitor.isPipeCmd());
+        executeCommand(visitor, context, context.literal(), visitor.isPipeCmd());
     }
 
 }

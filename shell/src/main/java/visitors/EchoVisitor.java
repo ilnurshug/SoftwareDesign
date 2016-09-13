@@ -11,8 +11,7 @@ public class EchoVisitor extends CommandVisitor<Echo, ShellParser.EchoContext> {
 
     @Override
     public void visit(ShellVisitorImpl visitor, ShellParser.EchoContext context) {
-        visitor.visitChildren(context);
-        CommandVisitor.executeCommand(cmd, context.literal(), false);
+        executeCommand(visitor, context, context.literal(), false);
     }
 
 }

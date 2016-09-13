@@ -11,8 +11,7 @@ public class PwdVisitor extends CommandVisitor<Pwd, ShellParser.PwdContext> {
 
     @Override
     public void visit(ShellVisitorImpl visitor, ShellParser.PwdContext context) {
-        visitor.visitChildren(context);
-        CommandVisitor.executeCommand(cmd, null, false);
+        executeCommand(visitor, context, null, false);
     }
 
 }

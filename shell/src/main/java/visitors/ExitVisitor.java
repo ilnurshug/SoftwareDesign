@@ -11,8 +11,7 @@ public class ExitVisitor extends CommandVisitor<Exit, ShellParser.ExitContext> {
 
     @Override
     public void visit(ShellVisitorImpl visitor, ShellParser.ExitContext context) {
-        visitor.visitChildren(context);
-        CommandVisitor.executeCommand(cmd, null, false);
+        executeCommand(visitor, context, null, false);
     }
 
 }
