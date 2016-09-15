@@ -1,8 +1,17 @@
 package commands;
 
+import com.google.common.io.Files;
 import org.apache.commons.cli.*;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Grep extends Command {
     private static Options options = new Options();
@@ -20,7 +29,8 @@ public class Grep extends Command {
                 .create());
     }
 
-    public Grep() {
+    public
+    Grep() {
         super(-1);
     }
 
@@ -32,6 +42,11 @@ public class Grep extends Command {
 
             args = line.getArgList();
 
+            if (args.size() != 2) {
+                logger.Logger.log("not correct number of arguments");
+                return null;
+            }
+
             boolean i = line.hasOption("i");
             boolean w = line.hasOption("w");
             int n     = -1;
@@ -40,7 +55,7 @@ public class Grep extends Command {
                 n = Integer.parseInt(line.getOptionValue("A"));
             }
 
-            return grep(args, i, w, n);
+            return grep(new GrepArgs(args.get(0), args.get(1), i, w, n));
         }
         catch (ParseException e) {
             logger.Logger.log(e.getMessage());
@@ -48,10 +63,105 @@ public class Grep extends Command {
         }
     }
 
-    private String grep(List<String> args, boolean i, boolean w, int n) {
-        System.out.println(i + " " + w + " " + n);
-        System.out.println(String.join(" ", args));
+    private String grep(GrepArgs args) {
+        String patternString = args.getPattern();
+        String filename = args.getFilename();
 
-        return null;
+        if (args.isMatchWords()) {
+            patternString = "\\b" + patternString + "\\b";
+        }
+
+        Pattern pattern;
+        if (args.isIgnoreCase()) {
+            pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
+        }
+        else {
+            pattern = Pattern.compile(patternString);
+        }
+
+        File file = new File(filename);
+        List<File> files = new ArrayList<File>();
+        if (file.isFile()) {
+            files.add(file);
+        }
+        else if (file.isDirectory()) {
+            files.addAll(FileUtils.listFiles(file, null, true));
+        }
+        else {
+            logger.Logger.log(filename + " is not file or directory");
+            return null;
+        }
+
+        return String.join(args.getAfterContext() > 0 ? "\n--\n" : "\n",
+                                        files.stream()
+                                        .map(f -> processFile(f, pattern, args))
+                                        .collect(Collectors.toList())
+        );
+    }
+
+    private String processFile(File file, Pattern pattern, GrepArgs args) {
+        List<String> text = new ArrayList<>();
+        try {
+            text = Files.readLines(file, Charset.defaultCharset());
+        }
+        catch (IOException e) {
+            logger.Logger.log(e.getMessage());
+        }
+
+        if (args.isIgnoreCase()) {
+            text = text.stream().map(String::toLowerCase).collect(Collectors.toList());
+        }
+
+        List<String> result = new ArrayList<>();
+        for (int k = 0; k < text.size(); k++) {
+            String line = text.get(k);
+
+            Matcher matcher = pattern.matcher(line);
+
+            if (matcher.find()) {
+                result.add(file.getName() + ":" + line);
+                for (int j = 1; k + j < text.size() && j <= args.getAfterContext(); j++) {
+                    result.add(file.getName() + "-" + text.get(k + j));
+                }
+            }
+        }
+
+        return String.join("\n", result);
+    }
+
+    private class GrepArgs {
+        private String pattern;
+        private String filename;
+        private boolean ignoreCase;
+        private boolean matchWords;
+        private int afterContext;
+
+        GrepArgs(String pattern, String filename, boolean ignoreCase, boolean matchWords, int afterContext) {
+            this.pattern = pattern;
+            this.filename = filename;
+            this.ignoreCase = ignoreCase;
+            this.matchWords = matchWords;
+            this.afterContext = afterContext;
+        }
+
+        String getPattern() {
+            return pattern;
+        }
+
+        String getFilename() {
+            return filename;
+        }
+
+        boolean isIgnoreCase() {
+            return ignoreCase;
+        }
+
+        boolean isMatchWords() {
+            return matchWords;
+        }
+
+        int getAfterContext() {
+            return afterContext;
+        }
     }
 }

@@ -21,9 +21,6 @@ public class Shell {
                 if (res != null) {
                     System.out.println(res);
                 }
-                else {
-                    System.out.println();
-                }
             }
         }
         catch (IOException e) {
