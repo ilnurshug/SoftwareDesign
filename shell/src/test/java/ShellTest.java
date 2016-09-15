@@ -66,4 +66,18 @@ public class ShellTest {
     public void procTest() {
         assertEquals("a\nb\nc", Shell.execute("./a.out a b c"));
     }
+
+    @Test
+    public void grepTest() {
+        assertEquals(":blah hello", Shell.execute("echo 'blah hello' | grep 'hello'"));
+        assertEquals(":blah hrllO", Shell.execute("echo 'blah hrllO' | grep -i 'H[er]llo'"));
+        assertEquals(":blah hella ss", Shell.execute("echo 'blah hella ss' | grep -w 'hell[^o]'"));
+        assertEquals("", Shell.execute("echo 'blahhello ss' | grep -w 'hello'"));
+
+        assertEquals(":hello\n-aaa", Shell.execute("grep -A 1 'hello' ./test/a"));
+        assertEquals(":hello\n-aaa\n-bbb", Shell.execute("grep -A 2 'hello' ./test/a"));
+        assertEquals(":hello", Shell.execute("grep -A 2 'hello' ./test/b"));
+
+        assertEquals(null, Shell.execute("grep 'hello' ./test/c"));
+    }
 }

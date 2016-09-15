@@ -2,7 +2,6 @@ package commands;
 
 import com.google.common.io.Files;
 import org.apache.commons.cli.*;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,8 +28,7 @@ public class Grep extends Command {
                 .create());
     }
 
-    public
-    Grep() {
+    public Grep() {
         super(-1);
     }
 
@@ -42,7 +40,7 @@ public class Grep extends Command {
 
             args = line.getArgList();
 
-            if (args.size() != 2) {
+            if (args.size() < 2) {
                 logger.Logger.log("not correct number of arguments");
                 return null;
             }
@@ -84,9 +82,9 @@ public class Grep extends Command {
         if (file.isFile()) {
             files.add(file);
         }
-        else if (file.isDirectory()) {
+        /*else if (file.isDirectory()) {
             files.addAll(FileUtils.listFiles(file, null, true));
-        }
+        }*/
         else {
             logger.Logger.log(filename + " is not file or directory");
             return null;
@@ -108,20 +106,19 @@ public class Grep extends Command {
             logger.Logger.log(e.getMessage());
         }
 
-        if (args.isIgnoreCase()) {
-            text = text.stream().map(String::toLowerCase).collect(Collectors.toList());
-        }
-
         List<String> result = new ArrayList<>();
         for (int k = 0; k < text.size(); k++) {
             String line = text.get(k);
+            if (args.isIgnoreCase()) {
+                line = line.toLowerCase();
+            }
 
             Matcher matcher = pattern.matcher(line);
 
             if (matcher.find()) {
-                result.add(file.getName() + ":" + line);
+                result.add(/*file.getName() +*/ ":" + text.get(k));
                 for (int j = 1; k + j < text.size() && j <= args.getAfterContext(); j++) {
-                    result.add(file.getName() + "-" + text.get(k + j));
+                    result.add(/*file.getName() + */"-" + text.get(k + j));
                 }
             }
         }

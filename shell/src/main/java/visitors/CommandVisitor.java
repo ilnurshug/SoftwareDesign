@@ -64,7 +64,7 @@ abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleCon
         }
     }
 
-    private static List<String> getValue(List<ShellParser.LiteralContext> literals) {
+    static List<String> getValue(List<ShellParser.LiteralContext> literals) {
         if (literals == null) {
             return new LinkedList<>();
         }

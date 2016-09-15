@@ -53,8 +53,8 @@ Q_MARK_2    : '"' ;
 ID          : Id ;
 VAR_ID      : Var ;
 
-FullQString : '\'' (PrintableChar | CharEscapeSeq)* '\'' ;
-WeakQString : '"' (PrintableChar | CharEscapeSeq)* '"' ;
+FullQString : '\'' CharFull* '\'' ;
+WeakQString : '"' CharWeak* '"' ;
 
 
 // fragments
@@ -67,8 +67,12 @@ fragment Id
             : ([a-zA-Z_0-9] | Op)+ ;
 fragment Var
             : '$' Id ;
-fragment PrintableChar
-            : '\u0020' .. '\u007F' ;
+
+fragment CharFull
+            : ~['] ;
+fragment CharWeak
+            : ~["] ;
+
 fragment CharEscapeSeq
             : '\\' ('b' | 't' | 'n' | 'f' | 'r' | '"' | '\'' | '\\');
 fragment StringElement
