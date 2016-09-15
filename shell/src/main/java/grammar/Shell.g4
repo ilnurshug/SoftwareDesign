@@ -12,6 +12,7 @@ simpleCmd   : cat
             | wc
             | pwd
             | exit
+            | grep
             | proc;
 
 assignment  : id '=' literal ;
@@ -21,6 +22,7 @@ echo        : 'echo' literal+ ;
 wc          : 'wc' literal* ;
 pwd         : 'pwd' ;
 exit        : 'exit' ;
+grep        : 'grep' literal+ ;
 proc        : literal+ ;
 
 id          : ID ;
