@@ -40,6 +40,7 @@ weakQuoting : WeakQString ;
 // Lexer
 
 WS          : [ \t]+ -> channel(HIDDEN) ;
+GREP        : 'grep' ;
 CAT         : 'cat' ;
 ECHO        : 'echo' ;
 WC          : 'wc' ;

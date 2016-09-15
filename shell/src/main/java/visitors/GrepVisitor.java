@@ -4,7 +4,7 @@ import commands.Grep;
 import grammar.ShellParser;
 
 public class GrepVisitor extends CommandVisitor<Grep, ShellParser.GrepContext> {
-    GrepVisitor() {
+    public GrepVisitor() {
         super(Grep.class);
     }
 

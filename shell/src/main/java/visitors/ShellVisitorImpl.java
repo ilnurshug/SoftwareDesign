@@ -63,6 +63,12 @@ public class ShellVisitorImpl extends ShellBaseVisitor {
         return null;
     }
 
+    @Override
+    public Object visitGrep(ShellParser.GrepContext ctx) {
+        visit(GrepVisitor.class, ctx);
+        return null;
+    }
+
     private <Visitor extends CommandVisitor, Context extends ParserRuleContext> void visit(Class<Visitor> cls, Context ctx) {
         try {
             Visitor visitor = cls.newInstance();
