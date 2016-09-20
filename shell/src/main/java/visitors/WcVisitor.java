@@ -3,6 +3,9 @@ package visitors;
 import commands.Wc;
 import grammar.ShellParser;
 
+/**
+ * Wc parse tree node visitor
+ */
 class WcVisitor extends CommandVisitor<Wc, ShellParser.WcContext> {
 
     public WcVisitor() {
@@ -13,5 +16,4 @@ class WcVisitor extends CommandVisitor<Wc, ShellParser.WcContext> {
     public void visit(ShellVisitorImpl visitor, ShellParser.WcContext context) {
         executeCommand(visitor, context, context.literal(), visitor.isPipeCmd());
     }
-
 }

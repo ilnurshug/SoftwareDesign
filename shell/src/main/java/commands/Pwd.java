@@ -3,9 +3,10 @@ package commands;
 import shell.Environment;
 
 import java.util.List;
-/*
-    Print cur directory
-*/
+
+/**
+ * Print current directory
+ */
 public class Pwd extends Command {
     public Pwd() {
         super(0);

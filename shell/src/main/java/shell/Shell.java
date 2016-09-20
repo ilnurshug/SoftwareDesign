@@ -9,6 +9,9 @@ import visitors.ShellVisitorImpl;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * REPL
+ */
 public class Shell {
 
     public static void main(String[] args) {
@@ -28,6 +31,10 @@ public class Shell {
         }
     }
 
+    /**
+     * @param str line to be executed
+     * @return result of execution
+     */
     public static String execute(String str) {
         InputStream in = new ByteArrayInputStream(str.getBytes(StandardCharsets.UTF_8));
         ParseTree parseTree = ANTLRParserAdaptor.parse(in);

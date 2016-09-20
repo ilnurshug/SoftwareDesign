@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/*
-    count newlines, words and bytes for each file
+/**
+ * count newlines, words and bytes for each file
  */
 public class Wc extends Command {
 
@@ -17,6 +17,11 @@ public class Wc extends Command {
         super(-1);
     }
 
+    /**
+     * @param args list of filenames
+     * @param inPipe true if current command is being executed in pipe
+     * @return number of newlines, words and bytes for each file joined by newlines
+     */
     @Override
     protected String execImpl(List<String> args, boolean inPipe) {
         if (args.size() == 0) {
@@ -45,7 +50,6 @@ public class Wc extends Command {
             return null;
         }
     }
-
 
     private static class FileInfo {
         private String filename;

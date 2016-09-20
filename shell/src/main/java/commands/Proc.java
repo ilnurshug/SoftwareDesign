@@ -7,14 +7,19 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
 
-/*
-    Execute process
+/**
+ * Execute process
  */
 public class Proc extends Command {
     public Proc() {
         super(-1);
     }
 
+    /**
+     * @param args process name and it's list of arguments
+     * @param inPipe true if current command is being executed in pipe
+     * @return output of chosen process
+     */
     @Override
     protected String execImpl(List<String> args, boolean inPipe) {
         List<String> output = new LinkedList<>();

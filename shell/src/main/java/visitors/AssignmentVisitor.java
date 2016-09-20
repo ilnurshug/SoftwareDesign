@@ -5,6 +5,9 @@ import grammar.ShellParser;
 
 import java.util.Arrays;
 
+/**
+ * Assignment parse tree node visitor
+ */
 class AssignmentVisitor extends CommandVisitor<Assignment, ShellParser.AssignmentContext> {
 
     public AssignmentVisitor() {

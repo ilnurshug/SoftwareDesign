@@ -3,6 +3,9 @@ package visitors;
 import commands.Pwd;
 import grammar.ShellParser;
 
+/**
+ * Pwd parse tree node visitor
+ */
 class PwdVisitor extends CommandVisitor<Pwd, ShellParser.PwdContext> {
 
     public PwdVisitor() {
