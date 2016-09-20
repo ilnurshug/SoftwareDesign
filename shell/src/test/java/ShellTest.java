@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class ShellTest {
 
@@ -78,6 +79,6 @@ public class ShellTest {
         assertEquals(":hello\n-aaa\n-bbb", Shell.execute("grep -A 2 'hello' ./test/a"));
         assertEquals(":hello", Shell.execute("grep -A 2 'hello' ./test/b"));
 
-        assertEquals(null, Shell.execute("grep 'hello' ./test/c"));
+        assertNull(Shell.execute("grep 'hello' ./test/c"));
     }
 }

@@ -47,7 +47,7 @@ public class Grep extends Command {
 
             boolean i = line.hasOption("i");
             boolean w = line.hasOption("w");
-            int n     = -1;
+            int n = -1;
 
             if (line.hasOption("A")) {
                 n = Integer.parseInt(line.getOptionValue("A"));
@@ -82,9 +82,6 @@ public class Grep extends Command {
         if (file.isFile()) {
             files.add(file);
         }
-        /*else if (file.isDirectory()) {
-            files.addAll(FileUtils.listFiles(file, null, true));
-        }*/
         else {
             logger.Logger.log(filename + " is not file or directory");
             return null;
