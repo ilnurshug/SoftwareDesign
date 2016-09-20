@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
  */
 abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleContext> {
 
-    private static Environment environment;
-    private static Logger logger;
+    protected static Environment environment;
+    protected static Logger logger;
 
     Cmd cmd;
 

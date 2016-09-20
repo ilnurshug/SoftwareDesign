@@ -41,7 +41,7 @@ public class Grep extends Command {
             args = line.getArgList();
 
             if (args.size() < 2) {
-                logger.Logger.log("not correct number of arguments");
+                logger.log("not correct number of arguments");
                 return null;
             }
 
@@ -56,7 +56,7 @@ public class Grep extends Command {
             return grep(new GrepArgs(args.get(0), args.get(1), i, w, n));
         }
         catch (ParseException e) {
-            logger.Logger.log(e.getMessage());
+            logger.log(e.getMessage());
             return null;
         }
     }
@@ -83,7 +83,7 @@ public class Grep extends Command {
             files.add(file);
         }
         else {
-            logger.Logger.log(filename + " is not file or directory");
+            logger.log(filename + " is not file or directory");
             return null;
         }
 
@@ -100,7 +100,7 @@ public class Grep extends Command {
             text = Files.readLines(file, Charset.defaultCharset());
         }
         catch (IOException e) {
-            logger.Logger.log(e.getMessage());
+            logger.log(e.getMessage());
         }
 
         List<String> result = new ArrayList<>();

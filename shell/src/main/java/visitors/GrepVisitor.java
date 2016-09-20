@@ -10,6 +10,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Grep parse tree node visitor
+ */
 class GrepVisitor extends CommandVisitor<Grep, ShellParser.GrepContext> {
     public GrepVisitor() {
         super(Grep.class);
@@ -27,7 +30,7 @@ class GrepVisitor extends CommandVisitor<Grep, ShellParser.GrepContext> {
             File temp = File.createTempFile("input", ".tmp");
 
             BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
-            String prevCmdResult = Environment.INSTANCE.getPrevCmdResult();
+            String prevCmdResult = environment.getPrevCmdResult();
             if (prevCmdResult != null) {
                 bw.write(prevCmdResult);
             }
@@ -36,7 +39,7 @@ class GrepVisitor extends CommandVisitor<Grep, ShellParser.GrepContext> {
             args.add(temp.getPath());
         }
         catch (IOException e) {
-            logger.Logger.log("file creation error");
+            logger.log("file creation error");
         }
 
         cmd.exec(args, visitor.isPipeCmd());
