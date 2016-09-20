@@ -11,6 +11,10 @@ import java.io.InputStream;
 
 public class ANTLRParserAdaptor {
 
+    /**
+     * @param in input (string)
+     * @return parse tree of input string or null if something went wrong
+     */
     public static ParseTree parse(InputStream in) {
         ANTLRInputStream input;
         try {

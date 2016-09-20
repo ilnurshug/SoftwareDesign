@@ -3,6 +3,9 @@ package visitors;
 import commands.Exit;
 import grammar.ShellParser;
 
+/**
+ * Exit parse tree node visitor
+ */
 class ExitVisitor extends CommandVisitor<Exit, ShellParser.ExitContext> {
 
     public ExitVisitor() {

@@ -3,6 +3,9 @@ package visitors;
 import commands.Cat;
 import grammar.ShellParser;
 
+/**
+ * Cat parse tree node visitor
+ */
 class CatVisitor extends CommandVisitor<Cat, ShellParser.CatContext> {
 
     public CatVisitor() {

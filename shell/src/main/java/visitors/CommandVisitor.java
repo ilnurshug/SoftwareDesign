@@ -13,6 +13,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * abstract class for visiting nodes of parse tree and executing commands
+ * @param <Cmd> type of command to be executed
+ * @param <Context> type of parse tree node
+ */
 abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleContext> {
 
     Cmd cmd;
@@ -26,10 +31,23 @@ abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleCon
         }
     }
 
+    /**
+     * recursively traverse child nodes
+     */
     public void visit(ShellVisitorImpl visitor, Context context) {
         visitor.visitChildren(context);
     }
 
+    /**
+     * recursively traverse child nodes and then execute command
+     * (Post-order traverse)
+     *
+     * @param visitor visitor object
+     * @param context current node of parse tree
+     * @param literals children's list of context with type Literal
+     * @param isPipe true if current command is being executed in pipe
+     * @see ShellVisitorImpl
+     */
     void executeCommand(ShellVisitorImpl visitor, Context context, List<ShellParser.LiteralContext> literals, boolean isPipe) {
         visitor.visitChildren(context);
 
@@ -47,6 +65,12 @@ abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleCon
         cmd.exec(args, isPipe);
     }
 
+    /**
+     *
+     * @param literal parse tree node
+     * @return literal content
+     *          performs content transformations if needed
+     */
     static String getValue(ShellParser.LiteralContext literal) {
         String str = CommandVisitor.getFirstTerminalNode(literal).getText();
 

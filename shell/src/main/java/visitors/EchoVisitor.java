@@ -3,6 +3,9 @@ package visitors;
 import commands.Echo;
 import grammar.ShellParser;
 
+/**
+ * Echo parse tree node visitor
+ */
 class EchoVisitor extends CommandVisitor<Echo, ShellParser.EchoContext> {
 
     public EchoVisitor() {

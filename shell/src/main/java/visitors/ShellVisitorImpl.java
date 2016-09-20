@@ -3,7 +3,12 @@ package visitors;
 import grammar.ShellBaseVisitor;
 import grammar.ShellParser;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
+/**
+ * custom visitor
+ * @see AbstractParseTreeVisitor
+ */
 public class ShellVisitorImpl extends ShellBaseVisitor {
     private boolean isPipeCmd = false;
 

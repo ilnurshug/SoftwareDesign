@@ -4,17 +4,25 @@ import shell.Environment;
 
 import java.util.List;
 
+/**
+ * abstract class for command execution
+ */
 public abstract class Command {
     private int argc;
 
-    /*
-        argc: number of arguments,
-        -1 if command have arbitrary number of args
+    /**
+     * @param argc number of arguments,
+     *             -1 if command have arbitrary number of args
      */
     Command(int argc) {
         this.argc = argc;
     }
 
+    /**
+     * @param args list of command arguments
+     * @param inPipe true if current command is being executed in pipe
+     * @return result of command execution
+     */
     public String exec(List<String> args, boolean inPipe) {
         String res;
 

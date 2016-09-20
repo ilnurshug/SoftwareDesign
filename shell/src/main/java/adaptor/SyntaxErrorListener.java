@@ -3,6 +3,9 @@ package adaptor;
 import logger.Logger;
 import org.antlr.v4.runtime.*;
 
+/**
+ * listener for logging all syntax errors
+ */
 class SyntaxErrorListener extends BaseErrorListener {
 
     SyntaxErrorListener() {
@@ -14,6 +17,6 @@ class SyntaxErrorListener extends BaseErrorListener {
                             int line, int charPositionInLine,
                             String msg, RecognitionException e)
     {
-        Logger.log("line "+line+":"+charPositionInLine+" at "+offendingSymbol+": "+msg);
+        Logger.log(String.format("line %d: %d at %s: %s", line, charPositionInLine, offendingSymbol, msg));
     }
 }

@@ -2,6 +2,9 @@ package shell;
 
 import java.util.HashMap;
 
+/**
+ * represents command execution environment
+ */
 public class Environment {
     public static final Environment INSTANCE = new Environment();
 
@@ -11,18 +14,33 @@ public class Environment {
     private Environment() {
     }
 
+    /**
+     * set variable value in environment
+     * @param key variable's name
+     * @param val new value
+     */
     public void set(String key, String val) {
         env.put(key, val);
     }
 
+    /**
+     * @param key variable's name
+     * @return value of selected variable
+     */
     public String get(String key) {
         return env.getOrDefault(key, null);
     }
 
+    /**
+     * @param res execution's result of last command
+     */
     public void addCommandResult(String res) {
         result = res;
     }
 
+    /**
+     * @return get result of previously executed command
+     */
     public String getPrevCmdResult() {
         String tmp = result;
         result = null;
