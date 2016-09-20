@@ -1,5 +1,6 @@
 package commands;
 
+import logger.Logger;
 import shell.Environment;
 
 import java.util.List;
@@ -9,6 +10,9 @@ import java.util.List;
  */
 public abstract class Command {
     private int argc;
+
+    static Environment environment;
+    static Logger logger;
 
     /**
      * @param argc number of arguments,
@@ -27,16 +31,30 @@ public abstract class Command {
         String res;
 
         if (argc != -1 && argc != args.size()) {
-            logger.Logger.log("wrong number of arguments");
+            logger.log("wrong number of arguments");
             res = "";
         }
         else {
             res = execImpl(args, inPipe);
         }
 
-        Environment.INSTANCE.addCommandResult(res);
+        environment.addCommandResult(res);
 
         return res;
+    }
+
+    /**
+     * @param environment command execution environment
+     */
+    public void setEnvironment(Environment environment) {
+        Command.environment = environment;
+    }
+
+    /**
+     * @param logger command logger
+     */
+    public void setLogger(Logger logger) {
+        Command.logger = logger;
     }
 
     protected abstract String execImpl(List<String> args, boolean inPipe);

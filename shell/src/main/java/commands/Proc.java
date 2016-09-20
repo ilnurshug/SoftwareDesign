@@ -38,7 +38,7 @@ public class Proc extends Command {
             }
         }
         catch (IOException e) {
-            logger.Logger.log(e.getMessage());
+            logger.log(e.getMessage());
         }
 
         return String.join("\n", output);

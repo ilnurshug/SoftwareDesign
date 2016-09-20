@@ -18,7 +18,7 @@ public class Assignment extends Command {
      */
     @Override
     protected String execImpl(List<String> args, boolean inPipe) {
-        Environment.INSTANCE.set(args.get(0), args.get(1));
+        environment.set(args.get(0), args.get(1));
         return null;
     }
 }

@@ -6,12 +6,11 @@ import java.util.HashMap;
  * represents command execution environment
  */
 public class Environment {
-    public static final Environment INSTANCE = new Environment();
 
-    private final HashMap<String, String> env = new HashMap<String, String>();
-    private String result = null;
+    private static final HashMap<String, String> env = new HashMap<String, String>();
+    private static String result = null;
 
-    private Environment() {
+    public Environment() {
     }
 
     /**
