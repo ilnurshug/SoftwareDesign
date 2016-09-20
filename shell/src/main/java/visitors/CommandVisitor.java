@@ -2,6 +2,7 @@ package visitors;
 
 import commands.Command;
 import grammar.ShellParser;
+import logger.Logger;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -20,6 +21,9 @@ import java.util.stream.Collectors;
  */
 abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleContext> {
 
+    private static Environment environment;
+    private static Logger logger;
+
     Cmd cmd;
 
     CommandVisitor(Class<Cmd> cls) {
@@ -27,8 +31,21 @@ abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleCon
             cmd = cls.newInstance();
         }
         catch (InstantiationException | IllegalAccessException e) {
-            logger.Logger.log(e.getMessage());
+            System.err.println(e.getMessage());
         }
+    }
+
+    /**
+     * @param environment command execution environment
+     */
+    void setEnvironment(Environment environment) {
+        CommandVisitor.environment = environment;
+        cmd.setEnvironment(environment);
+    }
+
+    void setLogger(Logger logger) {
+        CommandVisitor.logger = logger;
+        cmd.setLogger(logger);
     }
 
     /**
@@ -54,7 +71,7 @@ abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleCon
         List<String> args;
 
         if ((literals == null || literals.size() == 0) && isPipe) {
-            args = Collections.singletonList(Environment.INSTANCE.getPrevCmdResult())
+            args = Collections.singletonList(environment.getPrevCmdResult())
                                 .stream()
                                 .filter(Objects::nonNull)
                                 .collect(Collectors.toList());
@@ -78,7 +95,7 @@ abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleCon
             return getValue(literal.weakQuoting());
         }
         else if (literal.varid() != null) {
-            return Environment.INSTANCE.get(str.substring(1));
+            return environment.get(str.substring(1));
         }
         else if (literal.fullQuoting() != null) {
             return str.substring(1, str.length() - 1);
@@ -118,7 +135,7 @@ abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleCon
                 f = true;
             }
             else if (!Character.isAlphabetic(c) && f) {
-                res.append(Environment.INSTANCE.get(id));
+                res.append(environment.get(id));
                 res.append(c);
                 id = "";
                 f = false;

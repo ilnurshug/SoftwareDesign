@@ -2,18 +2,35 @@ package visitors;
 
 import grammar.ShellBaseVisitor;
 import grammar.ShellParser;
+import logger.Logger;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
+import shell.Environment;
 
 /**
  * custom visitor
  * @see AbstractParseTreeVisitor
  */
 public class ShellVisitorImpl extends ShellBaseVisitor {
+    private Environment environment;
+    private Logger logger;
+
     private boolean isPipeCmd = false;
 
     boolean isPipeCmd() {
         return isPipeCmd;
+    }
+
+    public Environment getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 
     @Override
@@ -71,10 +88,12 @@ public class ShellVisitorImpl extends ShellBaseVisitor {
     private <Visitor extends CommandVisitor, Context extends ParserRuleContext> void visit(Class<Visitor> cls, Context ctx) {
         try {
             Visitor visitor = cls.newInstance();
+            visitor.setEnvironment(environment);
+            visitor.setLogger(logger);
             visitor.visit(this, ctx);
         }
         catch (IllegalAccessException | InstantiationException e) {
-            logger.Logger.log(e.getMessage());
+            logger.log(e.getMessage());
         }
     }
 }

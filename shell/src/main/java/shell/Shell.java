@@ -14,6 +14,9 @@ import java.nio.charset.StandardCharsets;
  */
 public class Shell {
 
+    private static final Environment environment = new Environment();
+    private static final Logger logger = new Logger();
+
     public static void main(String[] args) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -30,7 +33,7 @@ public class Shell {
             }
         }
         catch (IOException e) {
-            Logger.log(e.getMessage());
+            logger.log(e.getMessage());
         }
     }
 
@@ -44,8 +47,11 @@ public class Shell {
         if (parseTree == null) return "";
 
         ShellVisitorImpl visitor = new ShellVisitorImpl();
+        visitor.setEnvironment(environment);
+        visitor.setLogger(logger);
+
         visitor.visit(parseTree);
 
-        return Environment.INSTANCE.getPrevCmdResult();
+        return environment.getPrevCmdResult();
     }
 }

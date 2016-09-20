@@ -46,7 +46,7 @@ public class Wc extends Command {
             return new FileInfo(filename);
         }
         catch (IOException e) {
-            logger.Logger.log("wc: " + filename + ": No such file");
+            logger.log("wc: " + filename + ": No such file");
             return null;
         }
     }

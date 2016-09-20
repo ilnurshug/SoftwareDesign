@@ -36,7 +36,7 @@ public class Cat extends Command {
             return Files.toString(new File(filename), Charset.defaultCharset());
         }
         catch (IOException e) {
-            Logger.log("file " + e.getMessage() + " not found");
+            logger.log("file " + e.getMessage() + " not found");
             return null;
         }
     }
