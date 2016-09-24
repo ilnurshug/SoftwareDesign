@@ -13,6 +13,7 @@ public class Echo extends Command {
     }
 
     /**
+     * execute echo command
      * @param args list of strings
      * @param inPipe true if current command is being executed in pipe
      * @return content of all strings joined by whitespace

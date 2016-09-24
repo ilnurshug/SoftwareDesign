@@ -12,6 +12,7 @@ import java.io.InputStream;
 public class ANTLRParserAdaptor {
 
     /**
+     * try to parse string in the input stream
      * @param in input (string)
      * @return parse tree of input string or null if something went wrong
      */

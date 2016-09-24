@@ -13,6 +13,7 @@ public class Assignment extends Command {
     }
 
     /**
+     * execute assignment command
      * @param args args[0] - variable's name, args[1] - variable's value
      * @param inPipe true if current command is being executed in pipe
      */

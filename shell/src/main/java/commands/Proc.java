@@ -16,6 +16,7 @@ public class Proc extends Command {
     }
 
     /**
+     * execute proc command
      * @param args process name and it's list of arguments
      * @param inPipe true if current command is being executed in pipe
      * @return output of chosen process

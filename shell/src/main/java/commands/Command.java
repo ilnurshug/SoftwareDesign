@@ -11,10 +11,11 @@ import java.util.List;
 public abstract class Command {
     private int argc;
 
-    static Environment environment;
-    static Logger logger;
+    protected Environment environment;
+    protected Logger logger;
 
     /**
+     * abstract command constructor
      * @param argc number of arguments,
      *             -1 if command have arbitrary number of args
      */
@@ -23,6 +24,7 @@ public abstract class Command {
     }
 
     /**
+     * run execution of command
      * @param args list of command arguments
      * @param inPipe true if current command is being executed in pipe
      * @return result of command execution
@@ -44,17 +46,19 @@ public abstract class Command {
     }
 
     /**
+     * set working environment
      * @param environment command execution environment
      */
     public void setEnvironment(Environment environment) {
-        Command.environment = environment;
+        this.environment = environment;
     }
 
     /**
+     * set logger
      * @param logger command logger
      */
     public void setLogger(Logger logger) {
-        Command.logger = logger;
+        this.logger = logger;
     }
 
     protected abstract String execImpl(List<String> args, boolean inPipe);

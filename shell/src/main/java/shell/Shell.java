@@ -35,6 +35,7 @@ public class Shell {
     }
 
     /**
+     * execute string
      * @param str line to be executed
      * @return result of execution
      */

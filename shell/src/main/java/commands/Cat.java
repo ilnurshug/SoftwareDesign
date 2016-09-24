@@ -18,6 +18,7 @@ public class Cat extends Command {
     }
 
     /**
+     * execute cat command
      * @param args list of filenames
      * @param inPipe true if current command is being executed in pipe
      * @return content of all listed files joined by newlines
@@ -26,12 +27,12 @@ public class Cat extends Command {
     protected String execImpl(List<String> args, boolean inPipe) {
         return String.join("\n",
                 args.stream()
-                        .map(Cat::processFile)
+                        .map(this::processFile)
                         .collect(Collectors.toList())
         );
     }
 
-    private static String processFile(String filename) {
+    private String processFile(String filename) {
         try {
             return Files.toString(new File(filename), Charset.defaultCharset());
         }

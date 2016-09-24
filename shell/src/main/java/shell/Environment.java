@@ -23,6 +23,7 @@ public class Environment {
     }
 
     /**
+     * get value of selected var
      * @param key variable's name
      * @return value of selected variable
      */
@@ -31,6 +32,7 @@ public class Environment {
     }
 
     /**
+     * add result of previously executed command
      * @param res execution's result of last command
      */
     public void addCommandResult(String res) {
@@ -38,7 +40,7 @@ public class Environment {
     }
 
     /**
-     * @return get result of previously executed command
+     * get result of previously executed command
      */
     public String getPrevCmdResult() {
         String tmp = result;

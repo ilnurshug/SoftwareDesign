@@ -18,6 +18,7 @@ public class Wc extends Command {
     }
 
     /**
+     * execute wc command
      * @param args list of filenames
      * @param inPipe true if current command is being executed in pipe
      * @return number of newlines, words and bytes for each file joined by newlines
@@ -30,7 +31,7 @@ public class Wc extends Command {
         }
         else {
             List<FileInfo> infoList = args.stream()
-                    .map(Wc::processFile)
+                    .map(this::processFile)
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
 
@@ -41,7 +42,7 @@ public class Wc extends Command {
         }
     }
 
-    private static FileInfo processFile(String filename) {
+    private FileInfo processFile(String filename) {
         try {
             return new FileInfo(filename);
         }
