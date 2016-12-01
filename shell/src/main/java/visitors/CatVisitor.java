@@ -6,10 +6,10 @@ import grammar.ShellParser;
 /**
  * Cat parse tree node visitor
  */
-class CatVisitor extends CommandVisitor<Cat, ShellParser.CatContext> {
+class CatVisitor extends CommandVisitor<ShellParser.CatContext> {
 
     public CatVisitor() {
-        super(Cat.class);
+        super(new Cat());
     }
 
     @Override

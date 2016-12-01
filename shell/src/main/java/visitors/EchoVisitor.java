@@ -6,10 +6,10 @@ import grammar.ShellParser;
 /**
  * Echo parse tree node visitor
  */
-class EchoVisitor extends CommandVisitor<Echo, ShellParser.EchoContext> {
+class EchoVisitor extends CommandVisitor<ShellParser.EchoContext> {
 
     public EchoVisitor() {
-        super(Echo.class);
+        super(new Echo());
     }
 
     @Override

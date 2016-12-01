@@ -7,6 +7,39 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import shell.Environment;
 
+enum Visitors {ASSIGN, CAT, ECHO, EXIT, GREP, PROC, PWD, WC}
+
+abstract class VisitorCreator {
+    public abstract CommandVisitor create(Visitors type);
+}
+
+class MyVisitorCreator extends VisitorCreator {
+    @Override
+    public CommandVisitor create(Visitors type) {
+        switch (type)
+        {
+            case WC:
+                return new WcVisitor();
+            case PWD:
+                return new PwdVisitor();
+            case PROC:
+                return new ProcVisitor();
+            case GREP:
+                return new GrepVisitor();
+            case ASSIGN:
+                return new AssignmentVisitor();
+            case CAT:
+                return new CatVisitor();
+            case ECHO:
+                return new EchoVisitor();
+            case EXIT:
+                return new ExitVisitor();
+            default:
+                return null;
+        }
+    }
+}
+
 /**
  * custom visitor
  * @see AbstractParseTreeVisitor
@@ -14,6 +47,7 @@ import shell.Environment;
 public class ShellVisitorImpl extends ShellBaseVisitor {
     private Environment environment;
     private Logger logger;
+    private final VisitorCreator creator;
 
     private boolean isPipeCmd = false;
 
@@ -33,15 +67,19 @@ public class ShellVisitorImpl extends ShellBaseVisitor {
         this.logger = logger;
     }
 
+    public ShellVisitorImpl() {
+        creator = new MyVisitorCreator();
+    }
+
     @Override
     public Object visitEcho(ShellParser.EchoContext ctx) {
-        visit(EchoVisitor.class, ctx);
+        visit(Visitors.ECHO, ctx);
         return null;
     }
 
     @Override
     public Object visitAssignment(ShellParser.AssignmentContext ctx) {
-        visit(AssignmentVisitor.class, ctx);
+        visit(Visitors.ASSIGN, ctx);
         return null;
     }
 
@@ -57,49 +95,44 @@ public class ShellVisitorImpl extends ShellBaseVisitor {
 
     @Override
     public Object visitCat(ShellParser.CatContext ctx) {
-        visit(CatVisitor.class, ctx);
+        visit(Visitors.CAT, ctx);
         return null;
     }
 
     @Override
     public Object visitPwd(ShellParser.PwdContext ctx) {
-        visit(PwdVisitor.class, ctx);
+        visit(Visitors.PWD, ctx);
         return null;
     }
 
     @Override
     public Object visitExit(ShellParser.ExitContext ctx) {
-        visit(ExitVisitor.class, ctx);
+        visit(Visitors.EXIT, ctx);
         return null;
     }
 
     @Override
     public Object visitWc(ShellParser.WcContext ctx) {
-        visit(WcVisitor.class, ctx);
+        visit(Visitors.WC, ctx);
         return null;
     }
 
     @Override
     public Object visitProc(ShellParser.ProcContext ctx) {
-        visit(ProcVisitor.class, ctx);
+        visit(Visitors.PROC, ctx);
         return null;
     }
 
     @Override
     public Object visitGrep(ShellParser.GrepContext ctx) {
-        visit(GrepVisitor.class, ctx);
+        visit(Visitors.GREP, ctx);
         return null;
     }
 
-    private <Visitor extends CommandVisitor, Context extends ParserRuleContext> void visit(Class<Visitor> cls, Context ctx) {
-        try {
-            Visitor visitor = cls.newInstance();
-            visitor.setEnvironment(environment);
-            visitor.setLogger(logger);
-            visitor.visit(this, ctx);
-        }
-        catch (IllegalAccessException | InstantiationException e) {
-            logger.log(e.getMessage());
-        }
+    private <Context extends ParserRuleContext> void visit(Visitors type, Context ctx) {
+        CommandVisitor<Context> visitor = creator.create(type);
+        visitor.setEnvironment(environment);
+        visitor.setLogger(logger);
+        visitor.visit(this, ctx);
     }
 }

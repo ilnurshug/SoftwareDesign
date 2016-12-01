@@ -16,23 +16,17 @@ import java.util.stream.Collectors;
 
 /**
  * abstract class for visiting nodes of parse tree and executing commands
- * @param <Cmd> type of command to be executed
  * @param <Context> type of parse tree node
  */
-abstract class CommandVisitor<Cmd extends Command, Context extends ParserRuleContext> {
+abstract class CommandVisitor<Context extends ParserRuleContext> {
 
     protected static Environment environment;
     protected static Logger logger;
 
-    Cmd cmd;
+    Command cmd;
 
-    CommandVisitor(Class<Cmd> cls) {
-        try {
-            cmd = cls.newInstance();
-        }
-        catch (InstantiationException | IllegalAccessException e) {
-            System.err.println(e.getMessage());
-        }
+    CommandVisitor(Command cmd) {
+        this.cmd = cmd;
     }
 
     /**

@@ -6,10 +6,10 @@ import grammar.ShellParser;
 /**
  * Pwd parse tree node visitor
  */
-class PwdVisitor extends CommandVisitor<Pwd, ShellParser.PwdContext> {
+class PwdVisitor extends CommandVisitor<ShellParser.PwdContext> {
 
     public PwdVisitor() {
-        super(Pwd.class);
+        super(new Pwd());
     }
 
     @Override

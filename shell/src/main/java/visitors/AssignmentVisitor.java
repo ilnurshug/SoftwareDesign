@@ -8,10 +8,10 @@ import java.util.Arrays;
 /**
  * Assignment parse tree node visitor
  */
-class AssignmentVisitor extends CommandVisitor<Assignment, ShellParser.AssignmentContext> {
+class AssignmentVisitor extends CommandVisitor<ShellParser.AssignmentContext> {
 
     public AssignmentVisitor() {
-        super(Assignment.class);
+        super(new Assignment());
     }
 
     @Override

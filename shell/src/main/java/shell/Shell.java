@@ -14,8 +14,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class Shell {
 
-    private static final Environment environment = new Environment();
-    private static final Logger logger = new Logger();
+    private static final Executor executor = new MyExecutor(Environment.INSTANCE, Logger.INSTANCE);
 
     public static void main(String[] args) {
         try {
@@ -23,33 +22,14 @@ public class Shell {
 
             String line;
             while ((line = br.readLine()) != null) {
-                String res = execute(line);
+                String res = executor.execute(line);
                 if (res != null) {
                     System.out.println(res);
                 }
             }
         }
         catch (IOException e) {
-            logger.log(e.getMessage());
+            Logger.INSTANCE.log(e.getMessage());
         }
-    }
-
-    /**
-     * execute string
-     * @param str line to be executed
-     * @return result of execution
-     */
-    public static String execute(String str) {
-        InputStream in = new ByteArrayInputStream(str.getBytes(StandardCharsets.UTF_8));
-        ParseTree parseTree = ANTLRParserAdaptor.parse(in);
-        if (parseTree == null) return "";
-
-        ShellVisitorImpl visitor = new ShellVisitorImpl();
-        visitor.setEnvironment(environment);
-        visitor.setLogger(logger);
-
-        visitor.visit(parseTree);
-
-        return environment.getPrevCmdResult();
     }
 }

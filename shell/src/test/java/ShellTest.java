@@ -1,5 +1,8 @@
+import logger.Logger;
 import org.junit.Test;
-import shell.Shell;
+import shell.Environment;
+import shell.Executor;
+import shell.MyExecutor;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,29 +14,31 @@ import static org.junit.Assert.assertNull;
 
 public class ShellTest {
 
+    private static final Executor executor = new MyExecutor(Environment.INSTANCE, Logger.INSTANCE);
+    
     @Test
     public void echoTest() {
-        assertEquals("abc", Shell.execute("echo abc"));
-        assertEquals("a b c", Shell.execute("echo a b  c "));
+        assertEquals("abc", executor.execute("echo abc"));
+        assertEquals("a b c", executor.execute("echo a b  c "));
     }
 
     @Test
     public void assignmentTest() {
-        Shell.execute("A = 1");
-        Shell.execute("B = $A");
+        executor.execute("A = 1");
+        executor.execute("B = $A");
 
-        assertEquals("1", Shell.execute("echo $B"));
+        assertEquals("1", executor.execute("echo $B"));
 
-        Shell.execute("B = ' $A '");
-        assertEquals(" $A ", Shell.execute("echo $B"));
+        executor.execute("B = ' $A '");
+        assertEquals(" $A ", executor.execute("echo $B"));
 
-        Shell.execute("B = \" $A $A \"");
-        assertEquals(" 1 1 ", Shell.execute("echo $B"));
+        executor.execute("B = \" $A $A \"");
+        assertEquals(" 1 1 ", executor.execute("echo $B"));
     }
 
     @Test
     public void pwdTest() {
-        assertEquals(new File("").getAbsolutePath(), Shell.execute("pwd"));
+        assertEquals(new File("").getAbsolutePath(), executor.execute("pwd"));
     }
 
     @Test
@@ -45,8 +50,8 @@ public class ShellTest {
         bw.write("aa bb cc\nd c");
         bw.close();
 
-        assertEquals("2 5 12 " + filename, Shell.execute("wc " + filename));
-        assertEquals("2 5 12 " + filename, Shell.execute("echo " + filename + " | wc"));
+        assertEquals("2 5 12 " + filename, executor.execute("wc " + filename));
+        assertEquals("2 5 12 " + filename, executor.execute("echo " + filename + " | wc"));
     }
 
     @Test
@@ -59,26 +64,26 @@ public class ShellTest {
         bw.write(text);
         bw.close();
 
-        assertEquals(text + "\n" + text, Shell.execute("cat " + filename + " " + filename));
-        assertEquals(text, Shell.execute("echo " + filename + " | cat"));
+        assertEquals(text + "\n" + text, executor.execute("cat " + filename + " " + filename));
+        assertEquals(text, executor.execute("echo " + filename + " | cat"));
     }
 
     @Test
     public void procTest() {
-        assertEquals("a\nb\nc", Shell.execute("./a.out a b c"));
+        assertEquals("a\nb\nc", executor.execute("./a.out a b c"));
     }
 
     @Test
     public void grepTest() {
-        assertEquals(":blah hello", Shell.execute("echo 'blah hello' | grep 'hello'"));
-        assertEquals(":blah hrllO", Shell.execute("echo 'blah hrllO' | grep -i 'H[er]llo'"));
-        assertEquals(":blah hella ss", Shell.execute("echo 'blah hella ss' | grep -w 'hell[^o]'"));
-        assertEquals("", Shell.execute("echo 'blahhello ss' | grep -w 'hello'"));
+        assertEquals(":blah hello", executor.execute("echo 'blah hello' | grep 'hello'"));
+        assertEquals(":blah hrllO", executor.execute("echo 'blah hrllO' | grep -i 'H[er]llo'"));
+        assertEquals(":blah hella ss", executor.execute("echo 'blah hella ss' | grep -w 'hell[^o]'"));
+        assertEquals("", executor.execute("echo 'blahhello ss' | grep -w 'hello'"));
 
-        assertEquals(":hello\n-aaa", Shell.execute("grep -A 1 'hello' ./test/a"));
-        assertEquals(":hello\n-aaa\n-bbb", Shell.execute("grep -A 2 'hello' ./test/a"));
-        assertEquals(":hello", Shell.execute("grep -A 2 'hello' ./test/b"));
+        assertEquals(":hello\n-aaa", executor.execute("grep -A 1 'hello' ./test/a"));
+        assertEquals(":hello\n-aaa\n-bbb", executor.execute("grep -A 2 'hello' ./test/a"));
+        assertEquals(":hello", executor.execute("grep -A 2 'hello' ./test/b"));
 
-        assertNull(Shell.execute("grep 'hello' ./test/c"));
+        assertNull(executor.execute("grep 'hello' ./test/c"));
     }
 }

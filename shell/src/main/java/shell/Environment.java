@@ -7,6 +7,8 @@ import java.util.HashMap;
  */
 public class Environment {
 
+    public static final Environment INSTANCE = new Environment();
+
     private static final HashMap<String, String> env = new HashMap<String, String>();
     private static String result = null;
 

@@ -6,10 +6,10 @@ import grammar.ShellParser;
 /**
  * Exit parse tree node visitor
  */
-class ExitVisitor extends CommandVisitor<Exit, ShellParser.ExitContext> {
+class ExitVisitor extends CommandVisitor<ShellParser.ExitContext> {
 
     public ExitVisitor() {
-        super(Exit.class);
+        super(new Exit());
     }
 
     @Override

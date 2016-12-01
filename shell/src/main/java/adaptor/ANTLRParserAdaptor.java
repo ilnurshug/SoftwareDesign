@@ -22,7 +22,7 @@ public class ANTLRParserAdaptor {
             input = new ANTLRInputStream(in);
         }
         catch (IOException e) {
-            Logger.log(e.getMessage());
+            Logger.INSTANCE.log(e.getMessage());
             return null;
         }
 
@@ -39,7 +39,7 @@ public class ANTLRParserAdaptor {
             parseTree = parser.command();
         }
         catch (RuntimeException re) {
-            Logger.log(re.getMessage());
+            Logger.INSTANCE.log(re.getMessage());
         }
 
         return parseTree;

@@ -13,9 +13,9 @@ import java.util.List;
 /**
  * Grep parse tree node visitor
  */
-class GrepVisitor extends CommandVisitor<Grep, ShellParser.GrepContext> {
+class GrepVisitor extends CommandVisitor<ShellParser.GrepContext> {
     public GrepVisitor() {
-        super(Grep.class);
+        super(new Grep());
     }
 
     @Override

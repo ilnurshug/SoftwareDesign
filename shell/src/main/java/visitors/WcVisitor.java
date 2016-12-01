@@ -6,10 +6,10 @@ import grammar.ShellParser;
 /**
  * Wc parse tree node visitor
  */
-class WcVisitor extends CommandVisitor<Wc, ShellParser.WcContext> {
+class WcVisitor extends CommandVisitor<ShellParser.WcContext> {
 
     public WcVisitor() {
-        super(Wc.class);
+        super(new Wc());
     }
 
     @Override

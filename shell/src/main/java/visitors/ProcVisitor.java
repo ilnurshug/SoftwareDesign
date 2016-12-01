@@ -6,10 +6,10 @@ import grammar.ShellParser;
 /**
  * Proc parse tree node visitor
  */
-class ProcVisitor  extends CommandVisitor<Proc, ShellParser.ProcContext> {
+class ProcVisitor  extends CommandVisitor<ShellParser.ProcContext> {
 
     public ProcVisitor() {
-        super(Proc.class);
+        super(new Proc());
     }
 
     @Override
